@@ -19,9 +19,13 @@ import argparse
 import pandas as pd
 from tqdm import tqdm
 import torch
+import warnings
 from unsloth import FastLanguageModel
 from sklearn.metrics import classification_report, accuracy_score
-from transformers import LogitsProcessor
+from transformers import LogitsProcessor, logging
+
+warnings.filterwarnings("ignore")
+logging.set_verbosity_error()
 
 PROMPT_TEMPLATE = """### Instruction:
 Banking intent classification
@@ -102,7 +106,7 @@ class IntentClassification:
         inputs = self.tokenizer(PROMPT_TEMPLATE.format(message), return_tensors="pt").to(self.device)
         processor = LabelLogitsProcessor(self.encoded_labels, self.first_tokens, self.tokenizer.eos_token_id, inputs.input_ids.shape[1])
         
-        outputs = self.model.generate(**inputs, max_new_tokens=20, do_sample=False, pad_token_id=self.tokenizer.eos_token_id, logits_processor=[processor], use_cache=True)
+        outputs = self.model.generate(**inputs, max_new_tokens=20, max_length=None, do_sample=False, pad_token_id=self.tokenizer.eos_token_id, logits_processor=[processor], use_cache=True)
         return extract_label(self.tokenizer.decode(outputs[0], skip_special_tokens=True))
 
     def predict_batch(self, texts: list) -> list:
@@ -115,7 +119,7 @@ class IntentClassification:
             inputs = self.tokenizer(prompts, return_tensors="pt", padding=True, truncation=True).to(self.device)
             processor = LabelLogitsProcessor(self.encoded_labels, self.first_tokens, self.tokenizer.eos_token_id, inputs.input_ids.shape[1])
 
-            outputs = self.model.generate(**inputs, max_new_tokens=20, do_sample=False, pad_token_id=self.tokenizer.eos_token_id, logits_processor=[processor], use_cache=True)
+            outputs = self.model.generate(**inputs, max_new_tokens=20, max_length=None, do_sample=False, pad_token_id=self.tokenizer.eos_token_id, logits_processor=[processor], use_cache=True)
             predictions.extend([extract_label(dec) for dec in self.tokenizer.batch_decode(outputs, skip_special_tokens=True)])
 
         return predictions
