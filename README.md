@@ -79,3 +79,5 @@ All configurations are explicitly tracked in `configs/train.yaml`. Key settings:
 - **Training Epochs:** 4 (with Early Stopping patience: 2)
 - **Maximum Sequence Length:** 256
 - **Regularization:** Weight decay `0.01`, LoRA Dropout `0`
+
+## Video link: https://drive.google.com/drive/folders/1l0_k976cXyWUJ__jiZEam9Q-U_f0vhYG?usp=drive_link
