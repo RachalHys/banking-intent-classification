@@ -1,0 +1,8 @@
+# Sampling Configuration
+seed: 42
+dataset_name: "banking77"
+sampling:
+  total_per_class: 80
+  train_ratio: 0.75
+paths:
+  output_dir: "sample_data"

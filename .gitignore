@@ -1,0 +1,22 @@
+# Environments
+.venv/
+__pycache__/
+*.pyc
+
+# IDEs
+.vscode/
+.idea/
+
+# Models and Outputs
+outputs/
+llama_lora/
+llama_finetune_*/
+*.gguf
+*.safetensors
+*.bin
+logs
+
+unsloth_compiled_cache
+# User requested ignores
+\[NLP-INDUSTRY\] - Project 2 (Unsloth).pdf
+llama3_1_(8b)_alpaca.py

@@ -1,0 +1,10 @@
+base_model: "unsloth/Meta-Llama-3.1-8B-bnb-4bit"
+
+model_checkpoint: "outputs/llama3_1_banking"
+
+max_seq_length: 256
+load_in_4bit: true
+
+label_map_path: "sample_data/label_map.json"
+
+batch_size: 32

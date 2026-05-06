@@ -1,0 +1,9 @@
+unsloth
+unsloth_zoo
+trl
+peft
+datasets
+scikit-learn
+pandas
+PyYAML
+evaluate

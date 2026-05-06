@@ -1,0 +1,47 @@
+# configs/train.yaml
+
+# Model & Data
+model_name: "unsloth/Meta-Llama-3.1-8B-bnb-4bit"
+max_seq_length: 256
+load_in_4bit: true
+data_dir: "sample_data"
+
+# LoRA 
+lora_r: 16
+lora_alpha: 16
+lora_dropout: 0
+target_modules:
+  - "q_proj"
+  - "k_proj"
+  - "v_proj"
+  - "o_proj"
+  - "gate_proj"
+  - "up_proj"
+  - "down_proj"
+
+# Eval
+eval_strategy: "steps"
+eval_steps: 100
+save_strategy: "steps"
+save_steps: 100
+logging_strategy: "steps"
+metric_for_best_model: "eval_loss"
+save_total_limit: 2
+logging_steps: 100
+
+# Training
+per_device_train_batch_size: 32
+per_device_eval_batch_size: 32 
+gradient_accumulation_steps: 1
+warmup_steps: 40
+num_train_epochs: 4
+early_stopping_patience: 2
+
+learning_rate: 0.0002
+optim: "adamw_8bit"
+weight_decay: 0.01
+lr_scheduler_type: "linear"
+seed: 3407
+
+output_dir: "outputs/checkpoints"
+final_model_dir: "outputs/llama3_1_banking"
